@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import tripList from './GO_Schedule_List.json';
 import calendar from './calendar.json';
+import 'semantic-ui/dist/semantic.css';
+import MyAutoSuggest from './AutoSuggest.js';
 
 class App extends Component {
 
-  render() {
+  findTrips = (originStation) => {
 
     var moment = require('moment');
 
     const availableStops = [];
     let serviceIds = '';
     let today = moment().format('YYYY-MM-DD');
-    let startStation = 'AJ';
+    let startStation = 'GU';
     let now = moment().format('HH:mm:ss');
 
     for(var i = 0; i < calendar.length; i++) {
@@ -30,9 +32,53 @@ class App extends Component {
 
     const orderedArray = availableStops.sort();
     console.log('Next 3 Stops Include: ' + orderedArray[0] + ', ' + orderedArray[1] + ', and ' + orderedArray[2]);
+  }
 
+  render() {
     return (
-      <div><h1>Hello World!</h1></div>
+      <div className='full height'>
+        <div className='following bar'>
+          <div className='ui container'>
+            <div className='ui text menu'>
+              <div className='item'>
+                <h1 className='ui header'>GM2U</h1>
+              </div>
+              <div className='ui right dropdown item'>
+                <h4 className='ui header'>About</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='masthead segment bg8'>
+          <div className='container'>
+            <div className='ui centered grid'>
+              <div className='eight wide column'>
+                <div className='ui raised very padded text container segment'>
+                  <div className='content'>
+                    <h2 className='ui center aligned icon header'>
+                      <i className="paper plane outline icon"></i>
+                    </h2>
+                    <h1 className='ui huge centered header'>Where are you coming from?</h1>
+                    <div className="ui divider"></div>
+                    <div className="ui form">
+                      <div className='field'>
+                        <div className="ui icon input">
+                          <input type="text" placeholder="Search..."></input>
+                          <i className="search icon"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="ui small message">Get Me 2 Union is the easiest way to find out when your next GO Train can get you to Union.</div>
+                    <MyAutoSuggest
+                      id='find your station'
+                      placeholder='i.e. Guildwood'/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
