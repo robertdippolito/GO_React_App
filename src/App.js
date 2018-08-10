@@ -60,18 +60,15 @@ class App extends Component {
                     </h2>
                     <h1 className='ui huge centered header'>Where are you coming from?</h1>
                     <div className="ui divider"></div>
-                    <div className="ui form">
+                    <form className='ui form'>
                       <div className='field'>
-                        <div className="ui icon input">
-                          <input type="text" placeholder="Search..."></input>
-                          <i className="search icon"></i>
-                        </div>
+                        <MyAutoSuggest
+                          id='find your station'
+                          placeholder='i.e. Guildwood'
+                          />
                       </div>
-                    </div>
+                    </form>
                     <div className="ui small message">Get Me 2 Union is the easiest way to find out when your next GO Train can get you to Union.</div>
-                    <MyAutoSuggest
-                      id='find your station'
-                      placeholder='i.e. Guildwood'/>
                   </div>
                 </div>
               </div>
