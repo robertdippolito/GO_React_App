@@ -765,6 +765,7 @@ class myAutoSuggest extends Component {
     this.setState({
       value: newValue
     });
+    this.props.displayValue(newValue);
   };
 
   // Autosuggest will call this function every time you need to update suggestions.
@@ -781,6 +782,7 @@ class myAutoSuggest extends Component {
       suggestions: []
     });
   };
+
   render() {
     const { value, suggestions } = this.state;
 
@@ -788,7 +790,7 @@ class myAutoSuggest extends Component {
     const inputProps = {
       placeholder: 'Search for the closest station...',
       value,
-      onChange: this.onChange
+      onChange: this.onChange,
     };
 
     return (

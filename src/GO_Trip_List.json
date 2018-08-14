@@ -1,6 +1,4 @@
-
-window.Seed = (function () {
-  const stations = [
+[
     {
        "stop_id": "YO",
        "stop_name": "York University GO",
@@ -12562,6 +12560,3 @@ window.Seed = (function () {
        "wheelchair_boarding": 1
     }
   ]
-
-  return { stations: stations };
-} ());

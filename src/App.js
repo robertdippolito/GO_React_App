@@ -3,6 +3,7 @@ import tripList from './GO_Schedule_List.json';
 import calendar from './calendar.json';
 import 'semantic-ui/dist/semantic.css';
 import MyAutoSuggest from './AutoSuggest.js';
+import stationList from './GO_Trip_List.json';
 
 class App extends Component {
 
@@ -13,7 +14,7 @@ class App extends Component {
     const availableStops = [];
     let serviceIds = '';
     let today = moment().format('YYYY-MM-DD');
-    let startStation = 'GU';
+    // let startStation = 'GU';
     let now = moment().format('HH:mm:ss');
 
     for(var i = 0; i < calendar.length; i++) {
@@ -23,7 +24,7 @@ class App extends Component {
     }
 
     for(var j = 0; j < tripList.length; j++) {
-      if(tripList[j].trip_id.includes(serviceIds) && tripList[j].stop_id === startStation && tripList[j].stop_headsign.includes('Union')) {
+      if(tripList[j].trip_id.includes(serviceIds) && tripList[j].stop_id === originStation && tripList[j].stop_headsign.includes('Union')) {
         if(tripList[j].arrival_time > now) {
           availableStops.push(tripList[j].arrival_time);
         }
@@ -34,7 +35,26 @@ class App extends Component {
     console.log('Next 3 Stops Include: ' + orderedArray[0] + ', ' + orderedArray[1] + ', and ' + orderedArray[2]);
   }
 
+  convertNametoId = (station) => {
+    console.log('The station is: '+ station);
+    let startStation = '';
+    for(var i = 0; i < stationList.length; i++) {
+      if(stationList[i].stop_name === station) {
+        console.log('The stop_id is: ' + stationList[i].stop_id);
+        startStation = stationList[i].stop_id;
+      }
+    };
+    console.log('The start station is: ' + startStation);
+    this.findTrips(startStation);
+  }
+
+  getValue = (selectedStation) => {
+    console.log('The selected station is: ' + selectedStation);
+    this.convertNametoId(selectedStation);
+  }
+
   render() {
+
     return (
       <div className='full height'>
         <div className='following bar'>
@@ -65,6 +85,7 @@ class App extends Component {
                         <MyAutoSuggest
                           id='find your station'
                           placeholder='i.e. Guildwood'
+                          displayValue={ this.getValue }
                           />
                       </div>
                     </form>
